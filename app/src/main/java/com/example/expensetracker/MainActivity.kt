@@ -4,28 +4,19 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.PorterDuff
 import android.os.Bundle
-import android.util.Log
-import android.widget.ArrayAdapter
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.expensetracker.adaper.CategoryAdapter
 import com.example.expensetracker.adaper.ExpenseAdapter
-import com.example.expensetracker.adaper.ExpensePagingAdapter
 import com.example.expensetracker.data.ExpenseData
 import com.example.expensetracker.databinding.ActivityMainBinding
 import com.example.expensetracker.helper.NightModManager
 import com.example.expensetracker.viewmodel.ExpenseViewModel
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
-import java.util.Calendar
 
 
 class MainActivity : AppCompatActivity() {
@@ -121,26 +112,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun getAll(category: String? = null, start: Long? = null, end: Long? = null) {
-        viewModel.expenses(category, start, end).observe(this@MainActivity) {
-            adapter = ExpenseAdapter(it) { position ->
-                dialog = ExpenseDialog.newInstanceForEdit(position)
-                dialog.show(supportFragmentManager, "expenseDialog")
-            }
-            adapter.notifyItemChange(it)
-            binding.rvExpenses.setHasFixedSize(true)
-            binding.rvExpenses.adapter = adapter
-            adapter.notifyItemChange(it)
-            getTotal(it)
-        }
-    }
-
-    @SuppressLint("SetTextI18n")
-    fun getTotal(expenseData: List<ExpenseData>) {
-        val totalPrice = expenseData.sumOf { it.amount ?: 0.0 }
-        binding.TotalAmountTV.text = "$totalPrice EGP"
-    }
-
     fun checkNightMode() {
         if (NightModManager.isNightModeEnabled()) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
@@ -161,52 +132,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun getDateRange(filter: String): Pair<Long, Long>? {
-        val calendar = Calendar.getInstance()
-
-        return when (filter) {
-            "This Day" -> {
-                calendar.set(Calendar.HOUR_OF_DAY, 0)
-                calendar.set(Calendar.MINUTE, 0)
-                calendar.set(Calendar.SECOND, 0)
-                calendar.set(Calendar.MILLISECOND, 0)
-                val start = calendar.timeInMillis
-
-                calendar.add(Calendar.DAY_OF_MONTH, 1)
-                val end = calendar.timeInMillis
-                start to end
-            }
-
-            "This month" -> {
-                calendar.set(Calendar.DAY_OF_MONTH, 1)
-                calendar.set(Calendar.HOUR_OF_DAY, 0)
-                calendar.set(Calendar.MINUTE, 0)
-                calendar.set(Calendar.SECOND, 0)
-                calendar.set(Calendar.MILLISECOND, 0)
-                val start = calendar.timeInMillis
-
-                calendar.add(Calendar.MONTH, 1)
-                val end = calendar.timeInMillis
-                start to end
-            }
-
-            "This year" -> {
-                calendar.set(Calendar.MONTH, Calendar.JANUARY)
-                calendar.set(Calendar.DAY_OF_MONTH, 1)
-                calendar.set(Calendar.HOUR_OF_DAY, 0)
-                calendar.set(Calendar.MINUTE, 0)
-                calendar.set(Calendar.SECOND, 0)
-                calendar.set(Calendar.MILLISECOND, 0)
-                val start = calendar.timeInMillis
-
-                calendar.add(Calendar.YEAR, 1)
-                val end = calendar.timeInMillis
-                start to end
-            }
-
-            else -> null // Any time
-        }
-    }
     fun catList(){
         catAdapter= CategoryAdapter(catList){text ->
             Toast.makeText(this,text, Toast.LENGTH_SHORT).show()

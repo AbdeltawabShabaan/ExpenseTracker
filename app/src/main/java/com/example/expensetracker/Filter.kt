@@ -5,17 +5,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
 import android.widget.RadioButton
-import android.widget.TextView
 import androidx.fragment.app.DialogFragment
-import com.example.expensetracker.data.FilterExpense
 import com.example.expensetracker.databinding.FilterDialogBinding
 import com.example.expensetracker.helper.Constance
-import com.example.expensetracker.viewmodel.FilterViewModel
-import java.util.Calendar
-
 class Filter: DialogFragment() {
     private lateinit var binding: FilterDialogBinding
 
@@ -28,7 +21,7 @@ class Filter: DialogFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FilterDialogBinding.inflate(inflater, container, false)
         return binding.root
     }

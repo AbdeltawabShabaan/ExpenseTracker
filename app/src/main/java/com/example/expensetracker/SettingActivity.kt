@@ -3,13 +3,10 @@ package com.example.expensetracker
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.example.expensetracker.adaper.ExpenseAdapter
 import com.example.expensetracker.databinding.ActivitySettingBinding
 import com.example.expensetracker.helper.Constance
 import com.example.expensetracker.viewmodel.ExpenseViewModel
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.util.Calendar
 
 class SettingActivity : AppCompatActivity() {
@@ -24,8 +21,6 @@ class SettingActivity : AppCompatActivity() {
         binding = ActivitySettingBinding.inflate(layoutInflater)
         Constance.init(this)
         viewModel = ExpenseViewModel(application)
-        val filter=Constance.getDate()
-        val search=binding.searchET.text.toString()
 
         setContentView(binding.root)
         binding.menuTV.setOnClickListener {

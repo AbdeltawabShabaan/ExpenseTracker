@@ -11,7 +11,6 @@ import android.widget.AutoCompleteTextView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
-import com.example.expensetracker.data.AppDataBase
 import com.example.expensetracker.data.ExpenseData
 import com.example.expensetracker.helper.Constance
 import com.example.expensetracker.viewmodel.ExpenseViewModel
