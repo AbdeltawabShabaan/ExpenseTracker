@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Expense Tracker</string>
+
+    <string-array name="cat_items">
+        <item>Food</item>
+        <item>Shopping</item>
+        <item>Health</item>
+        <item>Entertainment</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="durations">
+        <item>Any Time</item>
+        <item>This Day</item>
+        <item>This weak</item>
+        <item>This Month</item>
+        <item>THiS Year</item>
+    </string-array>
+</resources>
