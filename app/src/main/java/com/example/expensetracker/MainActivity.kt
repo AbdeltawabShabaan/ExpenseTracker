@@ -50,7 +50,6 @@ class MainActivity : AppCompatActivity() {
 
 
         checkNightMode()
-        //setupCategoryList()
         setupClicks()
         catList()
         setupRecyclerView()
@@ -142,6 +141,11 @@ class MainActivity : AppCompatActivity() {
             }
         }
         binding.categoryRV.adapter=catAdapter
+    }
+
+    override fun onResume() {
+        super.onResume()
+        observeExpense()
     }
 }
 
