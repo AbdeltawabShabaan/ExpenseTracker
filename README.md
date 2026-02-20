@@ -50,7 +50,7 @@ com.example.notesapplication
 ## ▶️ How to Run
 1. Clone projec:
    `bash
-   git clone https://github.com/AbdeltawabShabaan/NotesApplication.git
+   git clone https://github.com/AbdeltawabShabaan/ExpenseTracker.git
 
 ---
 
